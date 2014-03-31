@@ -238,7 +238,7 @@
       row += '; opacity: 0.6;"></canvas> ';
       row += fullNames[id];
       row += '<span class="parti"> (' + partis[id] + ')</span> : ';
-      row += value[id];
+      row += value[id].toFixed(2);
       row += '%</li>';
       return row;
     }
