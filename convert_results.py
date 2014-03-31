@@ -13,7 +13,7 @@ if __name__ == '__main__':
     offices = {}
     participation = {}
 
-    candidates = ('piolle', 'safar', 'chamussy', 'dornando', 'nuls')
+    candidates = ('piolle', 'safar', 'chamussy', 'dornando')
     
     #keys
     fieldnames = ('nom_bureau', 'inscrits', 'emarges', 'procurations', 'votes', 'nuls', 'exprimes', 'piolle', 'safar', 'chamussy', 'dornando')
@@ -27,7 +27,7 @@ if __name__ == '__main__':
             #Skip line without name
             if row["nom_bureau"] != "":
                 results = sorted(
-                    [{candidate.lower(): float(row[candidate]) * 100 / float(row["votes"])}
+                    [{candidate.lower(): float(row[candidate]) * 100 / float(row["exprimes"])}
                      for candidate in candidates],
                     key=lambda k: k.values(),
                     reverse=True)
