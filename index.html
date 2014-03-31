@@ -149,6 +149,7 @@
   <script type="text/javascript" src="Control.TouchHover.js"></script>
   <script type="text/javascript" src="bureaux.geojson"></script>
   <script type="text/javascript" src="bureaux_decoupage_2.json"></script>
+  <script type="text/javascript" src="participation_2.json"></script>
   <script type="text/javascript">
 
     var osmAttrib='Par <a href="http://www.makina-corpus.com" target="_blank">Makina Corpus</a> | <a href="https://github.com/makinacorpus/grenoble2014/tree/gh-pages" target="_blank">Code</a> | Découpage';
@@ -245,18 +246,21 @@
 
     legend.update = function (bureau) {
       var data;
+      var participation_tmp;
       if(bureau){
         var num_bureau = bureau.name.split(" ")[0].split("-")[0];
         data = results2[num_bureau];
+        participation_tmp = participation2[num_bureau]
       }
       else{
         data = results2["TOTAL"];
+        participation_tmp = participation2["TOTAL"]
       }
       var resultsList = '<ul>';
       for(var key in data) {
         resultsList += generateRowHtml(data[key]);
       };
-      resultsList += '</u>';
+      resultsList += '</ul><p>PARTICIPATION : ' + participation_tmp.toFixed(2) + '%</p>';
       this._div.innerHTML = (bureau) ? ['<b>', bureau.name, '</b><br />', resultsList].join("") : '<h3>Résultats à Grenoble 2e tour</h3></br>' + 'Survolez un bureau de vote pour plus de détails' + resultsList;
     };
 
