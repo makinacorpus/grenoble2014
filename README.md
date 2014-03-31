@@ -1,4 +1,4 @@
-montpellier2014
+grenoble2014
 ============
 
 [Cartographie des résultats du 2e tour des élections municipales 2014 à Grenoble](http://makinacorpus.github.io/grenoble2014/), par bureau de vote.
