@@ -146,6 +146,8 @@
 
   <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
 <!--   <script type="text/javascript" src="http://d3js.org/d3.v2.js"></script> -->
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/chroma-js/0.5.2/chroma.min.js"></script>
+
   <script type="text/javascript" src="Control.TouchHover.js"></script>
   <script type="text/javascript" src="bureaux.geojson"></script>
   <script type="text/javascript" src="bureaux_decoupage_2.json"></script>
@@ -164,24 +166,50 @@
     if (L.Browser.touch) {
       L.control.touchHover().addTo(map);
     }
+    var scores={}
+    
+    for(var key in results2) {
+      var bureau_results = results2[key];
+      for (var i = 0; i < bureau_results.length; i++) {
+        var candidat = bureau_results[i];
+        for (var name in candidat) {
+          if(!scores[name]) {
+            scores[name]=[]
+          }
+          else {
+            scores[name].push(candidat[name]);
+          }
+        }
+      }
+    }
+
+    for (var key in scores) {
+      scores[key] = {"min": Math.min.apply(Math, scores[key]), "max": Math.max.apply(Math, scores[key])};
+    }
 
     // get color depending on the candidate
-
     var colors = {'piolle':'green', 'safar':'#e20040', 'chamussy':'#4D6BA2', 'dornando':'#1B2638', 'nuls':''}
     var fullNames = {'piolle':'PIOLLE', 'safar':'SAFAR', 'chamussy':'CHAMUSSY', 'dornando':'DORNANDO', 'nuls':'NULS'}
     var partis = {'piolle':'EELV, PG', 'safar':'DVG', 'chamussy':'UMP - UDI', 'dornando':'FN', 'nuls':''}
 
-    function getColor(candidat, score1, score2) {
+    function getColorRate(candidat, rate) {
+      scale = chroma.scale(['white', chroma(colors[candidat]).saturate(50)]);
+      var color = scale(rate).darken(rate*10).hex();
+      return color;
+    }
+
+    function getColor(candidat, score1, score2, rate) {
       if (score1 == score2) {
         return 'white';
       } else{
-        return colors[candidat];
+        return getColorRate(candidat, rate);
       };
     }
 
     function bureauxStyle(feature) {
       var data = results2[feature.properties.name.split(" ")[0].split("-")[0]];
       var candidat0 = Object.keys(data[0])[0];
+      var rate = data[0][candidat0]/scores[candidat0]["max"]
       var candidat1 = Object.keys(data[1])[0];
       return {
         color: "lightgrey",
@@ -190,7 +218,8 @@
         fillColor: getColor(
            candidat0, 
            data[0][candidat0], 
-           data[1][candidat1]),
+           data[1][candidat1],
+           rate),
         fillOpacity: 0.6
       };
     }
