@@ -257,7 +257,7 @@
         resultsList += generateRowHtml(data[key]);
       };
       resultsList += '</u>';
-      this._div.innerHTML = (bureau) ? ['<b>', bureau.name, '<br />', resultsList].join("") : '<h3>Résultats à Grenoble 2e tour</h3></br>' + 'Survolez un bureau de vote pour plus de détails' + resultsList;
+      this._div.innerHTML = (bureau) ? ['<b>', bureau.name, '</b><br />', resultsList].join("") : '<h3>Résultats à Grenoble 2e tour</h3></br>' + 'Survolez un bureau de vote pour plus de détails' + resultsList;
     };
 
     legend.addTo(map);
