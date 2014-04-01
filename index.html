@@ -170,9 +170,9 @@
     var map = L.map('map', {maxZoom: 17, minZoom: 11}).setView([45.191474, 5.724537], 13);
     // Don't show the 'Powered by Leaflet' text 
     map.attributionControl.setPrefix(osmAttrib);
-    //map.setMaxBounds(new L.LatLngBounds(new L.LatLng(48.067756, -1.852042),new L.LatLng(48.160054, -1.404929)));
+    map.setMaxBounds(new L.LatLngBounds(new L.LatLng(45.05, 5.5),new L.LatLng(45.3, 5.9)));
 
-    L.tileLayer("http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png",{subdomains: '1234', attribution:'&copy; Contributeurs <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>'}).addTo(map)
+    L.tileLayer("http://{s}.livembtiles.makina-corpus.net/makina/grenoble-desaturate/{z}/{x}/{y}.png",{attribution:'&copy; Contributeurs <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>'}).addTo(map)
 
     if (L.Browser.touch) {
       L.control.touchHover().addTo(map);
