@@ -153,6 +153,19 @@
   <script type="text/javascript" src="bureaux_decoupage_2.json"></script>
   <script type="text/javascript" src="participation_2.json"></script>
   <script type="text/javascript">
+    if (!Object.keys) {
+      Object.keys = function(obj) {
+        var keys = [];
+
+        for (var i in obj) {
+          if (obj.hasOwnProperty(i)) {
+            keys.push(i);
+          }
+        }
+
+        return keys;
+      };
+    }
 
     var osmAttrib='Par <a href="http://www.makina-corpus.com" target="_blank">Makina Corpus</a> | <a href="https://github.com/makinacorpus/grenoble2014/tree/gh-pages" target="_blank">Code</a> | Découpage';
 
