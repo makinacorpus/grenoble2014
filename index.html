@@ -153,8 +153,7 @@
   <script type="text/javascript" src="bureaux_decoupage_2.json"></script>
   <script type="text/javascript" src="participation_2.json"></script>
   <script type="text/javascript">
-    if (!Object.keys) {
-      Object.keys = function(obj) {
+    Object.keys = function(obj) {
         var keys = [];
 
         for (var i in obj) {
@@ -165,7 +164,6 @@
 
         return keys;
       };
-    }
 
     var osmAttrib='Par <a href="http://www.makina-corpus.com" target="_blank">Makina Corpus</a> | <a href="https://github.com/makinacorpus/grenoble2014/tree/gh-pages" target="_blank">Code</a> | Découpage';
 
@@ -187,7 +185,7 @@
         var candidat = bureau_results[i];
         for (var name in candidat) {
           if(!scores[name]) {
-            scores[name]=[]
+            scores[name]=[];
           }
           else {
             scores[name].push(candidat[name]);
@@ -222,7 +220,7 @@
     function bureauxStyle(feature) {
       var data = results2[feature.properties.name.split(" ")[0].split("-")[0]];
       var candidat0 = Object.keys(data[0])[0];
-      var rate = data[0][candidat0]/scores[candidat0]["max"]
+      var rate = data[0][candidat0]/scores[candidat0]["max"];
       var candidat1 = Object.keys(data[1])[0];
       return {
         color: "lightgrey",
@@ -274,11 +272,9 @@
 
     function generateRowHtml(value) {
       var id = Object.keys(value)
-      var row = '<li><canvas id="myCanvas" width="';
-      row += value[id]*2;
-      row += '" height="20" style="border:1px solid ' + colors[id] + '; background-color:';
+      var row = '<li><div id="myCanvas" style="display:inline-block;border:1px solid ' + colors[id] + '; background-color:';
       row += colors[id];
-      row += '; opacity: 0.6;"></canvas> ';
+      row += '; opacity: 0.6; height:20px; width:'+ (value[id]*2) +'px"></div> ';
       row += fullNames[id];
       row += '<span class="parti"> (' + partis[id] + ')</span> : ';
       row += value[id].toFixed(2);
